@@ -42,7 +42,7 @@ function normalize(input: number, exp: number): [number, number] {
     return [parseFloat(input.toFixed(2)), exp];
 }
 
-function converter(entry: number, base: number, exp: number): [number, number, number] {
+export function converter(entry: number, base: number, exp: number): [number, number, number] {
     if (base === 10) {
         if (exp > 0) {
             while(exp > 0) {
