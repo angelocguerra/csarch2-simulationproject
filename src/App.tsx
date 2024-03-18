@@ -41,6 +41,7 @@ function App() {
   const [exponent, setExponent] = useState('');
   const [decimal, setDecimal] = useState('');
   const [hex, setHex] = useState('');
+  
 
   const handleMantissaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMantissa(event.target.value);
@@ -77,7 +78,10 @@ function App() {
                 className="mantissa-input"
               />
             </label>
-            <span className="base-two">×2</span>
+            <select id="selectBase" className="base-picker" onChange={setBaseNumber}>
+              <option value="2">×2 (Binary)</option>
+              <option value="10">×10 (Decimal)</option>
+            </select>
             <label className="inputLabel">
               Exponent
               <input
@@ -88,7 +92,9 @@ function App() {
               />
             </label>
           </div>
-          <button onClick={handleConvert} className="convert-button">Convert</button>
+          <div className="convert-div">
+            <button onClick={handleConvert} className="convert-button">Convert</button>
+          </div>
         </div>
 
         <div className="outputArea">
