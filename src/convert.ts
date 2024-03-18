@@ -32,11 +32,9 @@ function checkBinary(input: string): boolean {
 }
 
 function normalize(input: number, exp: number): [number, number] {
-    console.log(input, exp);
     while (input > 2) {
         input /= 10;
         exp += 1;
-        console.log(input, exp);
     }
 
     return [parseFloat(input.toFixed(2)), exp];
