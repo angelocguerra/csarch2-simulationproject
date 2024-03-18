@@ -39,7 +39,7 @@ function binaryFormatByParts(output: string){
 function App() {
   const [mantissa, setMantissa] = useState('');
   const [exponent, setExponent] = useState('');
-  const [decimal, setDecimal] = useState('');
+  const [binary, setBinary] = useState('');
   const [hex, setHex] = useState('');
   
 
@@ -53,7 +53,7 @@ function App() {
 
   const handleConvert = () => {
     // Insert conversion logic here
-    setDecimal('101010'); // placeholder
+    setBinary('101010'); // placeholder
     setHex('1A2B3C');
   };
 
@@ -62,7 +62,7 @@ function App() {
       <header className="App-header">
         <h1>IEEE-754 Binary-32 Floating-Point Converter</h1>
         <p className="description">
-          Enter the mantissa and exponent values to compute the decimal and hexadecimal equivalents.
+          Enter the mantissa and exponent values to compute the binary and hexadecimal equivalents.
         </p>
       </header>
 
@@ -70,7 +70,7 @@ function App() {
         <div className="inputGroup">
           <div className="inputContainer">
             <label className="inputLabel">
-              Mantissa / Decimal
+              Mantissa
               <input
                 value={mantissa}
                 onChange={handleMantissaChange}
@@ -98,7 +98,7 @@ function App() {
         </div>
 
         <div className="outputArea">
-          {decimal && <p className="output">Decimal: {decimal}</p>}
+          {binary && <p className="output">Binary: {binary}</p>}
           {hex && <p className="output">Hexadecimal: {hex}</p>}
         </div>
       </main>
