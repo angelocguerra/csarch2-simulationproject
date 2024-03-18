@@ -2,13 +2,6 @@ import React, { useRef, useState } from 'react';
 import './App.css';
 // import { getHex } from "./"
 
-function setBaseNumber() {
-
-  let dataType = (document.getElementById("selectBase") as HTMLInputElement).value;
-  let base = document.getElementById('baseNumber') as HTMLElement;
-  base.innerHTML = dataType;
-}
-
 function styleToolTip(text: string, tip: string, space:boolean = true) {
   const style = space ? "" : "";
   return <div className={style + " hover:bg-primary ease-in-out transition-colors tooltip tooltip-primary"}
@@ -37,19 +30,14 @@ function binaryFormatByParts(output: string){
 // }
 
 function App() {
-  const [mantissa, setMantissa] = useState('');
-  const [exponent, setExponent] = useState('');
+  // Inputs
+  const mantissa = useRef<HTMLInputElement>(null);
+  const exponent = useRef<HTMLInputElement>(null);
+  const [dataType, setDataType] = useState("Binary");
+
+  // Outputs
   const [binary, setBinary] = useState('');
   const [hex, setHex] = useState('');
-  
-
-  const handleMantissaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMantissa(event.target.value);
-  };
-
-  const handleExponentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setExponent(event.target.value);
-  };
 
   const handleConvert = () => {
     // Insert conversion logic here
@@ -69,31 +57,32 @@ function App() {
       <main className="inputArea">
         <div className="inputGroup">
           <div className="inputContainer">
+            {/* Input Mantissa */}
             <label className="inputLabel">
               Mantissa
-              <input
-                value={mantissa}
-                onChange={handleMantissaChange}
-                type="text"
-                className="mantissa-input"
-              />
+              <input ref={mantissa} type="text" id="mantissa" name="mantissa"
+                     className="input input-bordered mantissa-input"/>
             </label>
-            <select id="selectBase" className="base-picker" onChange={setBaseNumber}>
-              <option value="2">×2 (Binary)</option>
-              <option value="10">×10 (Decimal)</option>
+            {/* Selection for Data Type/Base */}
+            <select id="selectBase" className="base-picker">
+              <option selected onClick={() => {setDataType("Binary")}} value="2">×2 (Binary)</option>
+              <option onClick={() => {setDataType("Decimal")}} value="10">×10 (Decimal)</option>
             </select>
+            {/* Selection for Exponent */}
             <label className="inputLabel">
               Exponent
               <input
-                value={exponent}
-                onChange={handleExponentChange}
-                type="number"
-                className="exponent-input"
+                  ref={exponent}
+                  type="number"
+                  id="exponent"
+                  name="exponent"
+                  className="input input-bordered exponent-input"
               />
             </label>
           </div>
+          {/* Convert Button */}
           <div className="convert-div">
-            <button onClick={handleConvert} className="convert-button">Convert</button>
+            <button onClick={handleConvert} className="btn convert-button">Convert</button>
           </div>
         </div>
 
@@ -102,6 +91,9 @@ function App() {
           {hex && <p className="output">Hexadecimal: {hex}</p>}
         </div>
       </main>
+      <footer className="footer">
+        <p>Footer here place important stuff</p>
+      </footer>
     </div>
   );
 }

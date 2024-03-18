@@ -34,21 +34,21 @@
     align-items: center;
     gap: 1rem;
 }
-  
+
 .inputGroup {
     display: flex;
     align-items: center;
     gap: 1rem;
     width: 100%;
 }
-  
+
 .inputContainer {
     display: flex;
     align-items: center;
-    gap: 10px; 
+    gap: 10px;
     flex-grow: 1;
 }
-  
+
 .inputLabel {
     display: flex;
     flex-direction: column;
@@ -57,10 +57,9 @@
     margin: 0;
     margin-bottom: 0.5rem;
 }
-  
+
 .mantissa-input,
 .exponent-input {
-    padding: 0.5rem;
     border: 1px solid #d1d1d6;
     background-color: #ececec;
     color: #333;
@@ -72,9 +71,15 @@
     width: 300px;
     flex-grow: 2;
 }
-  
+
+.exponent-input {
+    width: 120px;
+    flex-grow: 2;
+}
+
 .base-picker {
-    padding: 0.5rem;
+    width: 150px;
+    padding: 0.75rem 0.5rem;
     margin-top: 1rem;
     border: 1px solid #d1d1d6;
     background-color: #ececec;
@@ -83,7 +88,6 @@
     font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     cursor: pointer;
   }
-  
 
 .mantissa-input:focus,
 .exponent-input:focus {
@@ -123,6 +127,11 @@
   margin-top: 10px;
   border-radius: 15px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
 }
 
 @media (max-width: 768px) {
