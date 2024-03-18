@@ -70,7 +70,7 @@ function App() {
         <div className="inputGroup">
           <div className="inputContainer">
             <label className="inputLabel">
-              Mantissa
+              Mantissa / Decimal
               <input
                 value={mantissa}
                 onChange={handleMantissaChange}
