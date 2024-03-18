@@ -1,3 +1,130 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.App {
+  text-align: center;
+  background-color: #f8f8f7;
+  color: #1d1d1f;
+  font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.App-header h1 {
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.19);
+}
+
+.description {
+  font-size: 20px;
+  margin-bottom: 2rem;
+}
+
+.inputArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+  
+.inputGroup {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+  
+.inputContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+  
+.inputLabel {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    text-align: left;
+}
+  
+.mantissa-input,
+.exponent-input {
+    padding: 0.5rem;
+    border: 1px solid #d1d1d6;
+    background-color: #ececec;
+    color: #333;
+    border-radius: 4px;
+    flex-grow: 1;
+}
+
+.mantissa-input {
+    width: 300px;
+    flex-grow: 2;
+}
+  
+.base-two {
+    font-size: 1rem;
+    align-self: center;
+}
+
+.mantissa-input:focus,
+.exponent-input:focus {
+    outline: none;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.convert-button {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background-color: #0071e3;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.convert-button:hover {
+  background-color: #0051ba;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.outputArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.output {
+  background-color: #fff;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+    .inputContainer {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .mantissa-input,
+    .exponent-input {
+      width: 100%;
+    }
+    
+    .base-two {
+      display: none;
+    }
+}

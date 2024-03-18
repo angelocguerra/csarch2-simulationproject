@@ -37,75 +37,65 @@ function binaryFormatByParts(output: string){
 // }
 
 function App() {
-  const mantissaInput = useRef<HTMLInputElement>(null);
-  const exponentInput = useRef<HTMLInputElement>(null);
+  const [mantissa, setMantissa] = useState('');
+  const [exponent, setExponent] = useState('');
+  const [decimal, setDecimal] = useState('');
+  const [hex, setHex] = useState('');
 
-  const [dataType, setDataType] = useState("Binary");
-  
-  const [binary, setBinary] = useState("");
-  const [hex, setHex] = useState("");
+  const handleMantissaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMantissa(event.target.value);
+  };
+
+  const handleExponentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setExponent(event.target.value);
+  };
+
+  const handleConvert = () => {
+    // Insert conversion logic here
+    setDecimal('101010'); // placeholder
+    setHex('1A2B3C');
+  };
 
   return (
     <div className="App">
-      <section>
-        <div className="container">
-          <div className="header">
-            <h1>IEEE-754 Binary-32 Floating-Point Converter</h1>
+      <header className="App-header">
+        <h1>IEEE-754 Binary-32 Floating-Point Converter</h1>
+        <p className="description">
+          Enter the mantissa and exponent values to compute the binary and hexadecimal equivalents.
+        </p>
+      </header>
 
-            <p>
-              (Edit me)
-            </p>
+      <main className="inputArea">
+        <div className="inputGroup">
+          <div className="inputContainer">
+            <label className="inputLabel">
+              Mantissa
+              <input
+                value={mantissa}
+                onChange={handleMantissaChange}
+                type="text"
+                className="mantissa-input"
+              />
+            </label>
+            <span className="base-two">×2</span>
+            <label className="inputLabel">
+              Exponent
+              <input
+                value={exponent}
+                onChange={handleExponentChange}
+                type="number"
+                className="exponent-input"
+              />
+            </label>
           </div>
-
-          <div className="inputArea">
-            <div className="inputNumber flex">
-              <label className="form-control">
-                <div className="label">
-                  <span className="label-text">Mantissa</span>
-                </div>
-                <input ref={mantissaInput} placeholder="1.0" type="number" id="mantissa" name="mantissa" className="input input-bordered"/>
-              </label>
-
-              {/* Selection for Data Type */}
-              <select className="select select-bordered" id="selectBase" onChange={setBaseNumber}>
-                <option selected onClick={() => {
-                  setDataType("Binary")
-                }} value="x2">Binary / base-2
-                </option>
-                <option onClick={() => {
-                  setDataType("Decimal")
-                }} value="x10">Decimal / base-10
-                </option>
-              </select>
-
-              <p id="baseNumber">x2</p>
-
-              <label className="form-control">
-                <div className="label">
-                  <span className="label-text">Exponent</span>
-                </div>
-                <input ref={exponentInput} placeholder="0" type="number" id="exponent" name="exponent" className="input input-bordered"/>
-              </label>
-            </div>
-
-            <div className="convertArea">
-              {/* Convert Button */}
-              <button className="btn">Convert</button>
-            </div>
-          </div>
-
-          <div className="">
-            {/* If binary number is not null, then perform function and display output */}
-            <p className=""> {binary != "" ? <>Binary: {binaryFormatByParts(binary)}</> : <></>} </p>
-            {/* If hex number is not null, then perform function and display output */}
-            <p className=""> {hex != "" ? <>Hexadecimal: </> : <></>} </p>
-
-            {binary !== "" && hex != "" && (
-                <button className="btn">Download Output.txt</button>
-            )}
-          </div>
+          <button onClick={handleConvert} className="convert-button">Convert</button>
         </div>
-      </section>
+
+        <div className="outputArea">
+          {decimal && <p className="output">Decimal: {decimal}</p>}
+          {hex && <p className="output">Hexadecimal: {hex}</p>}
+        </div>
+      </main>
     </div>
   );
 }
