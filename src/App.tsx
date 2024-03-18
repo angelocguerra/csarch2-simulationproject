@@ -62,7 +62,7 @@ function App() {
       <header className="App-header">
         <h1>IEEE-754 Binary-32 Floating-Point Converter</h1>
         <p className="description">
-          Enter the mantissa and exponent values to compute the binary and hexadecimal equivalents.
+          Enter the mantissa and exponent values to compute the decimal and hexadecimal equivalents.
         </p>
       </header>
 
