@@ -1,10 +1,38 @@
+function checkBinary(input: string, base: number): boolean {
+    if (base !== 2) {
+        return false;
+    }
+
+    for (let digit of input) {
+        if (digit !== "0" && digit !== "1" && digit !== ".") {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function checkDecimal(input: string, base: number): boolean {
+    if (base !== 10) {
+        return false;
+    }
+
+    for (let digit of input) {
+        if (digit < "0" || digit > "9" && digit !== ".") {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 function decToBin(decimal: number): number {
     let integer = Math.floor(decimal);
     let fractional = decimal - integer;
     let binary = "";
 
     while (integer > 0) {
-        binary = (integer % 2) + binary;
+        binary = (integer % 2).toString() + binary;
         integer = Math.floor(integer / 2);
     }
 
@@ -21,25 +49,6 @@ function decToBin(decimal: number): number {
     return parseFloat(binary);
 }
 
-function checkBinary(input: string): boolean {
-    for (let digit of input) {
-        if (digit !== "0" && digit !== "1" && digit !== ".") {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-function checkDecimal(input: string): boolean {
-    for (let digit of input) {
-        if (digit < "0" || digit > "9" && digit !== ".") {
-            return false;
-        }
-    }
-    return true;
-}
-
 function normalize(input: number, exp: number): [number, number] {
     while (input > 2) {
         input /= 10;
@@ -49,7 +58,8 @@ function normalize(input: number, exp: number): [number, number] {
     return [parseFloat(input.toFixed(2)), exp];
 }
 
-export function convert2binary(entry: number, base: number, exp: number): [number, number, number] {
+function convert2binary(entry: number, base: number, exp: number): [number, number, number] {
+    entry = parseFloat(entry.toString());
     if (base === 10) {
         if (exp > 0) {
             while(exp > 0) {
@@ -66,7 +76,66 @@ export function convert2binary(entry: number, base: number, exp: number): [numbe
         base = 2;
     }
 
-    [entry, exp] = normalize(entry, exp);
+    let [normalizedEntry, normalizedExp] = normalize(entry, exp);
 
-    return [entry, base, exp];
+    return [normalizedEntry, base, normalizedExp];
+}
+
+function getSignBit(sign: string): number {
+    if (sign[0] === "-") {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+function getExponentBits(exp: number): string {
+    let expbits = exp + 127;
+    return expbits.toString(2);
+}
+
+function getMantissaBits(input: number): string {
+    let mantissa = input.toString().split(".")[1];
+    while (mantissa.length < 23) {
+        mantissa += "0";
+    }
+    return mantissa;
+}
+
+function combineBits(signBit: number, expBits: string, mantissaBits: string): string {
+    return signBit.toString() + expBits + mantissaBits;
+}
+
+function hexTable(input: string): string {
+    switch (input) {
+        case "0000": return "0";
+        case "0001": return "1";
+        case "0010": return "2";
+        case "0011": return "3";
+        case "0100": return "4";
+        case "0101": return "5";
+        case "0110": return "6";
+        case "0111": return "7";
+        case "1000": return "8";
+        case "1001": return "9";
+        case "1010": return "A";
+        case "1011": return "B";
+        case "1100": return "C";
+        case "1101": return "D";
+        case "1110": return "E";
+        case "1111": return "F";
+        default: return "";
+    }
+}
+
+function convertToHex(combined: string): string {
+    let hex = "";
+    let current = 0;
+    while (current < combined.length) {
+        let hexbits = combined.slice(current, current + 4);
+        let convertedHex = hexTable(hexbits);
+        hex += convertedHex;
+        current += 4;
+    }
+    return hex;
 }
