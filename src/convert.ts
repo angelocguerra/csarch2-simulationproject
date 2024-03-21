@@ -23,11 +23,20 @@ function decToBin(decimal: number): number {
 
 function checkBinary(input: string): boolean {
     for (let digit of input) {
-        if (digit !== "0" && digit !== "1") {
+        if (digit !== "0" && digit !== "1" && digit !== ".") {
             return false;
         }
     }
 
+    return true;
+}
+
+function checkDecimal(input: string): boolean {
+    for (let digit of input) {
+        if (digit < "0" || digit > "9" && digit !== ".") {
+            return false;
+        }
+    }
     return true;
 }
 
@@ -40,7 +49,7 @@ function normalize(input: number, exp: number): [number, number] {
     return [parseFloat(input.toFixed(2)), exp];
 }
 
-export function converter(entry: number, base: number, exp: number): [number, number, number] {
+export function convert2binary(entry: number, base: number, exp: number): [number, number, number] {
     if (base === 10) {
         if (exp > 0) {
             while(exp > 0) {
