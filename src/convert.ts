@@ -55,11 +55,11 @@ function normalize(input: number, exp: number): [number, number] {
         exp += 1;
     }
 
-    return [parseFloat(input.toFixed(2)), exp];
+    return [parseFloat(input.toFixed(20)), exp];
 }
 
 function convert2binary(entry: number, base: number, exp: number): [number, number, number] {
-    entry = parseFloat(entry.toString());
+    entry = parseFloat(entry.toFixed(20));
     if (base === 10) {
         if (exp > 0) {
             while(exp > 0) {
@@ -91,7 +91,11 @@ function getSignBit(sign: string): number {
 
 function getExponentBits(exp: number): string {
     let expbits = exp + 127;
-    return expbits.toString(2);
+    let stringexpbits = expbits.toString(2);
+    if (exp + 127 < 128) {
+        stringexpbits = "0" + stringexpbits;
+    }
+    return stringexpbits;
 }
 
 function getMantissaBits(input: number): string {
