@@ -78,7 +78,7 @@ export function decimal_to_binary(input: number): string {
             temp = 1
             input -= 1;
         }
-        fractional += temp.toString();
+        fractional += temp;
         count += 1;
         if (count == 31) {
             break;
@@ -97,11 +97,11 @@ export function normalize_decimal(integer: string, decimal: string, exponent: nu
         exponent = 0;
     }
 
-    if(integer.toString().length == 1 && integer == "1") {
+    if(integer.length == 1 && integer == "1") {
         binary = integer + "." + decimal;
     }
 
-    else if(integer.toString().length > 1) {
+    else if(integer.length > 1) {
         while(integer != "1") {
             temp = integer.slice(-1);
             count += 1;
@@ -115,11 +115,10 @@ export function normalize_decimal(integer: string, decimal: string, exponent: nu
         temp = decimal;
 
         while(temp.charAt(0) != "1") {
-            temp = parseFloat(temp).toString(2).slice(1);
+            temp = temp.slice(1);
             count += 1;
         }
         count += 1;
-        temp = (temp).toString();
         binary = "1" + "." + temp;
         exponent = 0 - count;
     }

@@ -182,7 +182,6 @@ function App() {
   function checkSpecial(sign_bit: string, exponent: number, integer: string, dec: string, isBase2: number): boolean {
     let exp_denorm: number = isBase2 ? -126 : -38;
     let exp_infi: number = isBase2 ? 127 : 38;
-    let significand: string;
     let temp: string;
 
     if(exponent < exp_denorm) {       // denormalized
