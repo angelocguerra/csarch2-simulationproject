@@ -114,6 +114,25 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.clear-button {
+    background-color: #ED0800 !important;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    border-radius: 20px;
+    background-color: #0071e3;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.clear-button:hover {
+    background-color: #B80600 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .outputArea {
     display: flex;
     flex-direction: column;
