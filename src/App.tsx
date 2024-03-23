@@ -11,6 +11,7 @@ function App() {
   // Outputs
   let [binaryOutput, setBinaryOutput] = useState("");
   let [hexOutput, setHexOutput] = useState("");
+  let [type, setType] = useState("");
   let [errorMessage, setErrorMessage] = useState("");
 
   let handleConvert = () => {
@@ -97,6 +98,8 @@ function App() {
 
           setBinaryOutput(answer_bin);
           setHexOutput(answer_hex);
+          setType("Finite");
+
         }
       } else if (base === "10") {
         inputNum = (parseFloat(String(integer + dec)) * parseFloat(Math.pow(10.0, parseInt(exponent)).toString())).toString();
@@ -121,6 +124,7 @@ function App() {
 
           setBinaryOutput(answer_bin);
           setHexOutput(answer_hex);
+          setType("Finite")
         }
       }
     }
@@ -136,12 +140,14 @@ function App() {
     if(inputNum === "qNaN") {
       setBinaryOutput("0 11111111 010 0000 0000 0000 0000 0000");
       setHexOutput("7FA00000");
+      setType("Quiet Nan")
       return false;
     }
 
     if(inputNum === "sNaN") {
       setBinaryOutput("0 11111111 100 0000 0000 0000 0000 0000");
       setHexOutput("7FC00000");
+      setType("Signaling NaN")
       return false;
     }
 
@@ -199,6 +205,7 @@ function App() {
 
       setBinaryOutput(answer_bin);
       setHexOutput(answer_hex);
+      setType("Denormalized")
 
       return true;
     }
@@ -208,6 +215,7 @@ function App() {
 
       setBinaryOutput(answer_bin);
       setHexOutput(answer_hex);
+      (sign_bit === "1") ? setType("Positive Infinity") : setType("Negative Infinity")
 
       return true;
     }
@@ -291,6 +299,7 @@ function App() {
         <div className="outputArea">
           {binaryOutput && <p className="output" id="binaryOutput">Binary: {binaryFormatByParts(binaryOutput)}</p>}
           {hexOutput && <p className="output" id="hexOutput">Hexadecimal: {hexOutput}</p>}
+          {type && <p className="output" id="typeOutput">Type: {type}</p>}
           {/* Download Output Button */}
           {binaryOutput && hexOutput && <div className="convert-div">
             <button onClick={handleDownload} className="btn convert-button">Download Output.txt</button>
