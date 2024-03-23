@@ -196,10 +196,8 @@ function App() {
         dec = temp + dec;
         integer = integer.slice(0, -1);
       }
-      significand = "00000000000000000000000";
-      significand = dec + significand.slice(dec.length);
 
-      let answer_bin: string = sign_bit + " 00000000 " + significand;
+      let answer_bin: string = sign_bit + " 00000000 " + getMantissa(dec);
       let answer_hex: string = binary_to_hex(answer_bin.split(' ').join(''));
 
       setBinaryOutput(answer_bin);

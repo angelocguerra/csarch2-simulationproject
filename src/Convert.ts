@@ -105,7 +105,7 @@ export function normalize_decimal(integer: string, decimal: string, exponent: nu
         while(integer != "1") {
             temp = integer.slice(-1);
             count += 1;
-            decimal = decimal.toString().padStart(decimal.toString().length + 1, temp);
+            decimal = decimal.padStart(decimal.length + 1, temp);
             integer = integer.slice(0, -1);
         }
         binary = "1" + "." + decimal;
@@ -183,10 +183,10 @@ export function getMantissa(mantissa: string): string {
         for (let i = 0; i < add; i++) {
             mantissa += "0";
         }
-        if (length > 23) {
-            for (let i = length; i > 23; i--) {
-                mantissa = mantissa.slice(0, -1);
-            }
+    }
+    else if (length > 23) {
+        for (let i = length; i > 23; i--) {
+            mantissa = mantissa.slice(0, -1);
         }
     }
     return mantissa;
