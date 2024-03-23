@@ -83,6 +83,7 @@ function App() {
       if (inputNum === "0") {
         setBinaryOutput('0 00000000 00000000000000000000000');
         setHexOutput('00000000');
+        setType("Zero")
       } else if (base === "2") {
         dec = parseFloat("0." + splitNum[1]);
 
