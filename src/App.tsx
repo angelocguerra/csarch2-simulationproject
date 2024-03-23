@@ -26,24 +26,25 @@ function App() {
   }
 
   let handleClear = () => {
-    // Clear input
+    // Clear input values
     (document.getElementById("inputNum") as HTMLFormElement).value="";
     (document.getElementById("selectBase") as HTMLFormElement).value="2";
     (document.getElementById("exponent") as HTMLFormElement).value="";
     //Clear output
     setBinaryOutput("");
     setHexOutput("");
+    setErrorMessage("");
   };
 
-  let handleDownload = () => {
+  let handleDownload = (): void => {
     let [inputNum, exponent] = getInputValues();
     let base = (document.getElementById("selectBase") as HTMLInputElement).value;
     saveToFile(inputNum, base, exponent);
   }
 
-  function clearOutputs():void {
-    binaryOutput = "";
-    hexOutput = "";
+  function clearOutputs(): void {
+    setBinaryOutput("");
+    setHexOutput("");
   }
 
    function convert(inputNum: string, base: string, exponent: string){
