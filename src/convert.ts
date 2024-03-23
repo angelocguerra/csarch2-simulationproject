@@ -1,3 +1,4 @@
+export { decToBin, checkBinary, checkDecimal, normalize, convert2binary, getSignBit, getExponentBits, getMantissaBits, combineBits, convertToHex};
 function checkBinary(input: string, base: number): boolean {
     if (base !== 2) {
         return false;
