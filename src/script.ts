@@ -1,3 +1,18 @@
+export {
+    binary_to_hex,
+    BinToDec,
+    binary_to_hex_convert,
+    integer_to_binary,
+    decimal_to_binary,
+    normalize_decimal,
+    normalize_binary,
+    getSign,
+    getMantissa,
+    getExponent,
+    convert,
+    error_check,
+    checkSpecial,
+};
 function binary_to_hex(binary: string): string {
     let a: string = binary;
     let b: string = "";
