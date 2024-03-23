@@ -79,7 +79,7 @@ function App() {
       let integer: number = parseFloat(splitNum[0]);
       let dec: number = parseFloat("0." + splitNum[1]);
 
-      if (/^[-]?0*\.?0*$/.test(inputNum)) {
+      if (/^[-+]?0*\.?0*$/.test(inputNum)) {
         setBinaryOutput('0 00000000 00000000000000000000000');
         setHexOutput('00000000');
         setType("Zero")
@@ -91,7 +91,7 @@ function App() {
         if(checkSpecial(sign_bit, normalized[1], binary[0], "0."+binary[1], 1) === false) {
           let binary: string = normalized[0];
           let exponent: number = 127 + normalized[1];
-          let expoRep: string = integer_to_binary(parseInt(exponent.toString()));
+          let expoRep: string = integer_to_binary(exponent);
 
           let answer_bin: string = sign_bit + " " + getExponent(expoRep) + " " + getMantissa(binary.split('.')[1]);
           let answer_hex: string = binary_to_hex(sign_bit + getExponent(expoRep) + getMantissa(binary.split('.')[1]));
@@ -102,13 +102,13 @@ function App() {
 
         }
       } else if (base === "10") {
-        inputNum = (parseFloat(String(integer + dec)) * parseFloat(Math.pow(10.0, parseInt(exponent)).toString())).toString();
-        splitNum = inputNum.toString().split('.');
+        inputNum = ((integer + dec) * Math.pow(10.0, parseInt(exponent))).toString();
+        splitNum = inputNum.split('.');
         integer = parseFloat(splitNum[0]);
         dec = parseFloat("0." + splitNum[1]);
 
-        let integer_str: string = integer_to_binary(parseInt(integer.toString()));
-        let dec_str: string = decimal_to_binary(parseFloat(dec.toString()));
+        let integer_str: string = integer_to_binary(integer);
+        let dec_str: string = decimal_to_binary(dec);
 
         let normalized: [string, number] = normalize_decimal(integer_str, dec_str, parseInt(exponent));
         let binary: string[] = normalized[0].split(".");
@@ -117,7 +117,7 @@ function App() {
 
         if(checkSpecial(sign_bit, Number(exponent), binary[0], "0."+binary[1], 0) === false) {
           let exponent: number = 127 + normalized[1];
-          let expoRep: string = integer_to_binary(parseInt(exponent.toString()));
+          let expoRep: string = integer_to_binary(exponent);
 
           let answer_bin: string = sign_bit + " " + getExponent(expoRep) + " " + getMantissa(binary_str.split('.')[1]);
           let answer_hex: string = binary_to_hex(sign_bit + getExponent(expoRep) + getMantissa(binary_str.split('.')[1]));
@@ -138,14 +138,14 @@ function App() {
     }
 
     if(inputNum === "qNaN") {
-      setBinaryOutput("0 11111111 010 0000 0000 0000 0000 0000");
+      setBinaryOutput("0 11111111 01000000000000000000000");
       setHexOutput("7FA00000");
       setType("Quiet Nan")
       return false;
     }
 
     if(inputNum === "sNaN") {
-      setBinaryOutput("0 11111111 100 0000 0000 0000 0000 0000");
+      setBinaryOutput("0 11111111 10000000000000000000000");
       setHexOutput("7FC00000");
       setType("Signaling NaN")
       return false;
@@ -162,14 +162,14 @@ function App() {
     }
 
     if (base === "2") {
-      if (!/^[-]?[01]+$/.test(splitNum[0]) || (splitNum[1] != null && !/^[01]+$/.test(splitNum[1]))) {
+      if (!/^[-+]?[01]+$/.test(splitNum[0]) || (splitNum[1] != null && !/^[01]+$/.test(splitNum[1]))) {
         setErrorMessage("ERROR: Not a valid binary input");
         clearOutputs();
         return false;
       }
     }
     else if (base === "10") {
-      if (!/^[-]?[0-9]+(\.?[0-9]*)$/.test(splitNum[0]) || (splitNum[1] != null && !/^[0-9]*$/.test(splitNum[1]))) {
+      if (!/^[-+]?[0-9]+(\.?[0-9]*)$/.test(splitNum[0]) || (splitNum[1] != null && !/^[0-9]*$/.test(splitNum[1]))) {
         setErrorMessage("ERROR: Not a valid decimal input");
         clearOutputs();
         return false;
