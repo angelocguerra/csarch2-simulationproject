@@ -214,7 +214,7 @@ function App() {
 
       setBinaryOutput(answer_bin);
       setHexOutput(answer_hex);
-      (sign_bit === "1") ? setType("Positive Infinity") : setType("Negative Infinity")
+      (sign_bit === "0") ? setType("Positive Infinity") : setType("Negative Infinity")
 
       return true;
     }
