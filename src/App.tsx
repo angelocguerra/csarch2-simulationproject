@@ -49,6 +49,21 @@ function App() {
     setHexOutput("");
   }
 
+  function styleToolTip(text: string, tip: string, space:boolean = true): JSX.Element {
+    const style = space ? "inline-flex flex-wrap px-2 py-1 rounded-lg text-xs font-medium leading-4 bg-green-800 text-gray-100 ml-1" : "inline-flex flex-wrap px-2 py-1 rounded-lg text-xs font-medium leading-4 bg-green-800 text-gray-100";
+    return <div className={style+" hover:bg-amber-700 ease-in-out transition-colors tooltip tooltip-amber-700"} data-tip={tip}>
+      {text}
+    </div>
+  }
+
+  function binaryFormatByParts(binaryOutput: string): JSX.Element {
+    let binary = binaryOutput.split(" ");
+    let signBit = styleToolTip(binary[0], "Sign Bit", false);
+    let exponentBit = styleToolTip(binary[1], "Exponent Representation");
+    let mantissaBit = styleToolTip(binary[2], "Mantissa Representation");
+    return<div className="inline-flex flex-wrap">{signBit} {exponentBit} {mantissaBit}</div>
+  }
+
    function convert(inputNum: string, base: string, exponent: string){
     // Get sign bit and split number
     let sign_bit: string = getSign(inputNum);
@@ -84,7 +99,7 @@ function App() {
           setHexOutput(answer_hex);
         }
       } else if (base === "10") {
-        inputNum = (parseFloat(integer.toString() + dec.toString()) * parseFloat(Math.pow(10.0, parseInt(exponent)).toString())).toString();
+        inputNum = (parseFloat(String(integer + dec)) * parseFloat(Math.pow(10.0, parseInt(exponent)).toString())).toString();
         splitNum = inputNum.toString().split('.');
         integer = parseFloat(splitNum[0]);
         dec = parseFloat("0." + splitNum[1]);
@@ -274,15 +289,15 @@ function App() {
         </div>
 
         <div className="outputArea">
-          {binaryOutput && <p className="output" id="binaryOutput">Binary: {binaryOutput}</p>}
+          {binaryOutput && <p className="output" id="binaryOutput">Binary: {binaryFormatByParts(binaryOutput)}</p>}
           {hexOutput && <p className="output" id="hexOutput">Hexadecimal: {hexOutput}</p>}
           {/* Download Output Button */}
           {binaryOutput && hexOutput && <div className="convert-div">
             <button onClick={handleDownload} className="btn convert-button">Download Output.txt</button>
           </div>}
-        </div>
-        <div className="errorArea">
-          {errorMessage && <p className="error" id="error">{errorMessage}</p>}
+          {errorMessage && <div className="errorArea py-2 px-6 rounded-full text-black font-bold">
+            <p className="error" id="error">{errorMessage}</p>
+          </div>}
         </div>
       </main>
     </div>
