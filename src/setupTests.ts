@@ -50,17 +50,30 @@ describe('getSign function', () => {
 
 /* 4. Exponent Tester */
 describe('getExponent function', () => {
-    test('should return the correct exponent bits', () => {
-        const result = getExponent("101010");
-        expect(result).toBe("00000000");
+    test('should return the correct exponent bits for positive exponent', () => {
+        const result = getExponent("5"); // Example positive exponent
+        expect(result).toBe('10000100'); // Expected result for 5
+    });
+    test('should return the correct exponent bits for negative exponent', () => {
+        const result = getExponent("-5"); // Example negative exponent
+        expect(result).toBe('01111010'); // Expected result for -5
+    });
+    test('should return the correct exponent bits for zero exponent', () => {
+        const result = getExponent("0"); // Example zero exponent
+        expect(result).toBe('01111111'); 
     });
 });
 
 /* 5. Mantissa Tester */
 describe('getMantissa function', () => {
-    test('should return the correct mantissa bits', () => {
-        const result = getMantissa("101010");
-        expect(result).toBe("00000000000000000000000");
+    test('should return the correct mantissa bits for positive input', () => {
+      const result = getMantissa("0.75"); // Example input
+      expect(result).toBe('11000000000000000000000'); // Expected result for the input
+    });
+  
+    test('should return the correct mantissa bits for negative input', () => {
+      const result = getMantissa("-0.625"); // Example input
+      expect(result).toBe('10100000000000000000000'); // Expected result for the input
     });
 });
 
@@ -83,8 +96,22 @@ describe('normalize_binary function', () => {
 /* 8. Binary to Hex Converter Tester */
 describe('binary_to_hex function', () => {
     test('should correctly convert binary to hex', () => {
-        const binaryInput = '101010101010'; // Example binary input
-        const expectedResult = 'AAA'; // Expected result for the input
+      const binaryInput = '01000010000111000000000000000000'; // Example binary input
+      const expectedResult = '421C0000'; // Expected result for the input
+      const result = binary_to_hex(binaryInput);
+      expect(result).toBe(expectedResult);
+    });
+
+    test('should correctly convert binary to hex', () => {
+        const binaryInput = '10111101000111000000000000000000'; // Example binary input
+        const expectedResult = 'BD1C0000'; // Expected result for the input
+        const result = binary_to_hex(binaryInput);
+        expect(result).toBe(expectedResult);
+    })
+
+    test('should correctly convert binary to hex', () => {
+        const binaryInput = '11000101000111000000000000000000'; // Example binary input
+        const expectedResult = 'C51C0000'; // Expected result for the input
         const result = binary_to_hex(binaryInput);
         expect(result).toBe(expectedResult);
     });
