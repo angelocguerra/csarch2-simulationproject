@@ -214,7 +214,7 @@ function getExponent(input: string): string {
 
 function convert(): void {
     if (error_check()) {
-        let input: string = (document.getElementById("num") as HTMLInputElement).value;
+        let input: string = (document.getElementById("input") as HTMLInputElement).value;
         let base: string = (document.getElementById("base") as HTMLInputElement).value;
         let exponent: string = (document.getElementById("exponent") as HTMLInputElement).value;
         let sign_bit: string = getSign(input);
@@ -229,7 +229,7 @@ function convert(): void {
         let dec: number = parseFloat("0." + splitNum[1]);
 
         if (input === "0") {
-            (document.getElementById("binNum") as HTMLElement).innerHTML = '0 00000000 00000000000000000000000';
+            (document.getElementById("binaryOutput") as HTMLElement).innerHTML = '0 00000000 00000000000000000000000';
         } else if (base === "2") {
             dec = parseFloat("0." + splitNum[1]);
 
@@ -277,7 +277,7 @@ function convert(): void {
 }
 
 function error_check(): boolean {
-    let input: string = (document.getElementById("num") as HTMLInputElement).value;
+    let input: string = (document.getElementById("input") as HTMLInputElement).value;
     let base: string = (document.getElementById("base") as HTMLInputElement).value;
     let exponent: string = (document.getElementById("exponent") as HTMLInputElement).value;
     let sign_bit: string = getSign(input);
@@ -291,15 +291,15 @@ function error_check(): boolean {
 
     if(input === "qNaN")
     {
-        (document.getElementById("binNum") as HTMLElement).innerHTML = "0 11111111 010 0000 0000 0000 0000 0000";
-        (document.getElementById("hexNum") as HTMLElement).innerHTML = "7FA00000";
+        (document.getElementById("binaryOutput") as HTMLElement).innerHTML = "0 11111111 010 0000 0000 0000 0000 0000";
+        (document.getElementById("hexOutput") as HTMLElement).innerHTML = "7FA00000";
         return false;
     }
 
     if(input === "sNaN")
     {
-        (document.getElementById("binNum") as HTMLElement).innerHTML = "0 11111111 100 0000 0000 0000 0000 0000";
-        (document.getElementById("hexNum") as HTMLElement).innerHTML = "7FC00000";
+        (document.getElementById("binaryOutput") as HTMLElement).innerHTML = "0 11111111 100 0000 0000 0000 0000 0000";
+        (document.getElementById("hexOutput") as HTMLElement).innerHTML = "7FC00000";
         return false;
     }
 
@@ -365,8 +365,8 @@ function checkSpecial(sign_bit: string, exponent: number, integer: string, dec: 
         let answer_bin: string = sign_bit + " 00000000 " + significand;
         let answer_hex: string = binary_to_hex(answer_bin.split(' ').join(''));
 
-        (document.getElementById("binNum") as HTMLElement).innerHTML = answer_bin;
-        (document.getElementById("hexNum") as HTMLElement).innerHTML = answer_hex;
+        (document.getElementById("binaryOutput") as HTMLElement).innerHTML = answer_bin;
+        (document.getElementById("hexOutput") as HTMLElement).innerHTML = answer_hex;
 
         return true;
     }
@@ -374,8 +374,8 @@ function checkSpecial(sign_bit: string, exponent: number, integer: string, dec: 
         let answer_bin: string = sign_bit + " 11111111 00000000000000000000000";
         let answer_hex: string = binary_to_hex(answer_bin.split(' ').join(''));
 
-        (document.getElementById("binNum") as HTMLElement).innerHTML = answer_bin;
-        (document.getElementById("hexNum") as HTMLElement).innerHTML = answer_hex;
+        (document.getElementById("binaryOutput") as HTMLElement).innerHTML = answer_bin;
+        (document.getElementById("hexOutput") as HTMLElement).innerHTML = answer_hex;
 
         return true;
     }
