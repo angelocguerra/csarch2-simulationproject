@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import './App.css';
-import './Convert.ts';
+import './Convert';
 import {binary_to_hex, integer_to_binary, decimal_to_binary, normalize_decimal, normalize_binary, getSign, getMantissa, getExponent} from "./Convert";
 
 function App() {
@@ -26,10 +26,11 @@ function App() {
   }
 
   let handleClear = () => {
-    // Clear input values
+    // Clear input
     (document.getElementById("inputNum") as HTMLFormElement).value="";
     (document.getElementById("selectBase") as HTMLFormElement).value="2";
     (document.getElementById("exponent") as HTMLFormElement).value="";
+    //Clear output
     setBinaryOutput("");
     setHexOutput("");
   };
@@ -46,9 +47,11 @@ function App() {
   }
 
    function convert(inputNum: string, base: string, exponent: string){
+    // Get sign bit and split number
     let sign_bit: string = getSign(inputNum);
     let splitNum: string[] = inputNum.toString().split('.');
 
+    // Error Validation
     if (error_check(inputNum, base, exponent, sign_bit, splitNum)) {
       if (sign_bit === "1") {
         splitNum[0] = splitNum[0].substring(1); //removes the '-' sign
@@ -124,12 +127,6 @@ function App() {
       return false;
     }
 
-    if (base === "default") {
-      setErrorMessage("Error: No base selected");
-      clearOutputs();
-      return false;
-    }
-
     if (sign_bit === "1"){
       splitNum[0] =  splitNum[0].substring(1); //removes the '-' sign
     }
@@ -161,7 +158,6 @@ function App() {
   function checkSpecial(sign_bit: string, exponent: number, integer: string, dec: string, isBase2: number): boolean {
     let exp_denorm: number = isBase2 ? -126 : -38;
     let exp_infi: number = isBase2 ? 127 : 38;
-    let binary: string;
     let significand: string;
     let temp: string;
 
