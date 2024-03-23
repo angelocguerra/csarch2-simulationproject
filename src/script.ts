@@ -59,7 +59,7 @@ function binary_to_hex_convert(binary: string): string {
         .join("");
 }
 
-function clearInputs() {
+function clearFields() {
     (document.getElementById("input") as HTMLInputElement).value = "";
     (document.getElementById("base") as HTMLInputElement).value = "";
     (document.getElementById("exponent") as HTMLInputElement).value = "";
@@ -380,4 +380,41 @@ function checkSpecial(sign_bit: string, exponent: number, integer: string, dec: 
         return true;
     }
     return false;
+}
+
+function saveToFile(): void {
+    let input: string = (document.getElementById("input") as HTMLInputElement).value;
+    let base: string = (document.getElementById("base") as HTMLInputElement).value;
+    let exponent: string = (document.getElementById("exponent") as HTMLInputElement).value;
+
+    let binOut: string = (document.getElementById("binaryOutput") as HTMLInputElement).value;
+    let hexOut: string = (document.getElementById("hexOutput") as HTMLInputElement).value;
+
+    if (hexOut !== "" && binOut !== "") {
+        let data: string = "INPUT\nNumber: " + input + 
+                "\nBase: " + base + 
+                "\nExponent: " + exponent +
+                "\n\nOUTPUT\nBinary Number: " + binOut + 
+                "\nHexadecimal Number: " + hexOut + "\n";
+        
+        let blob: Blob = new Blob([data], {type: "text/plain"});
+
+        // Use the createObjectURL and open methods to prompt a save dialog box in other browsers
+        let url: string = window.URL.createObjectURL(blob);
+        let a: HTMLAnchorElement = document.createElement("a");
+        a.href = url;
+        a.download = "IEEE754_Single-Precision_Floating-Point_Converter.txt";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+
+        (document.getElementById("error_msg") as HTMLElement).innerHTML = "";
+        (document.getElementById("error") as HTMLElement).style.display = "none";
+        clearFields();
+    }
+    else {
+        (document.getElementById("error_msg") as HTMLElement).innerHTML = "ERROR: Can't save to file, output is empty. Please Convert first.";
+        (document.getElementById("error") as HTMLElement).style.display = "block";
+    }
 }
