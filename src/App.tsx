@@ -56,15 +56,12 @@ function App() {
 
     // Error Validation
     if (error_check(inputNum, base, exponent, sign_bit, splitNum)) {
-      if (sign_bit === "1") {
-        splitNum[0] = splitNum[0].substring(1); //removes the '-' sign
-      }
 
       //separates integer and decimal
       let integer: number = parseFloat(splitNum[0]);
       let dec: number = parseFloat("0." + splitNum[1]);
 
-      if (inputNum === "0") {
+      if (/^[-]?0*\.?0*$/.test(inputNum)) {
         setBinaryOutput('0 00000000 00000000000000000000000');
         setHexOutput('00000000');
       } else if (base === "2") {
@@ -84,7 +81,7 @@ function App() {
           setHexOutput(answer_hex);
         }
       } else if (base === "10") {
-        inputNum = (parseFloat(integer.toString() + dec.toString()) * parseFloat(Math.pow(10.0, parseInt(exponent)).toString())).toString();
+        inputNum = (parseFloat(String(integer + dec)) * parseFloat(Math.pow(10.0, parseInt(exponent)).toString())).toString();
         splitNum = inputNum.toString().split('.');
         integer = parseFloat(splitNum[0]);
         dec = parseFloat("0." + splitNum[1]);
@@ -131,7 +128,7 @@ function App() {
     }
 
     if (sign_bit === "1"){
-      splitNum[0] =  splitNum[0].substring(1); //removes the '-' sign
+      splitNum[0] = splitNum[0].substring(1); //removes the '-' sign
     }
 
     if (splitNum.length > 2) {
@@ -141,14 +138,14 @@ function App() {
     }
 
     if (base === "2") {
-      if (!/^[01]+$/.test(splitNum[0]) || (splitNum[1] != null && !/^[01]+$/.test(splitNum[1]))) {
+      if (!/^[-]?[01]+$/.test(splitNum[0]) || (splitNum[1] != null && !/^[01]+$/.test(splitNum[1]))) {
         setErrorMessage("ERROR: Not a valid binary input");
         clearOutputs();
         return false;
       }
     }
     else if (base === "10") {
-      if (!/^[0-9]+$/.test(splitNum[0]) || (splitNum[1] != null && !/^[0-9]+$/.test(splitNum[1]))) {
+      if (!/^[-]?[0-9]+(\.?[0-9]*)$/.test(splitNum[0]) || (splitNum[1] != null && !/^[0-9]*$/.test(splitNum[1]))) {
         setErrorMessage("ERROR: Not a valid decimal input");
         clearOutputs();
         return false;
@@ -175,7 +172,6 @@ function App() {
         dec = temp + dec;
         integer = integer.slice(0, -1);
       }
-
       significand = "00000000000000000000000";
       significand = dec + significand.slice(dec.length);
 
