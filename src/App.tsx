@@ -11,6 +11,7 @@ function App() {
   // Outputs
   let [binaryOutput, setBinaryOutput] = useState("");
   let [hexOutput, setHexOutput] = useState("");
+  let [type, setType] = useState("");
   let [errorMessage, setErrorMessage] = useState("");
 
   let handleConvert = () => {
@@ -49,6 +50,21 @@ function App() {
     setHexOutput("");
   }
 
+  function styleToolTip(text: string, tip: string, space:boolean = true): JSX.Element {
+    const style = space ? "inline-flex flex-wrap px-2 py-1 rounded-lg text-xs font-medium leading-4 bg-green-800 text-gray-100 ml-1" : "inline-flex flex-wrap px-2 py-1 rounded-lg text-xs font-medium leading-4 bg-green-800 text-gray-100";
+    return <div className={style+" hover:bg-amber-700 ease-in-out transition-colors tooltip tooltip-amber-700"} data-tip={tip}>
+      {text}
+    </div>
+  }
+
+  function binaryFormatByParts(binaryOutput: string): JSX.Element {
+    let binary = binaryOutput.split(" ");
+    let signBit = styleToolTip(binary[0], "Sign Bit", false);
+    let exponentBit = styleToolTip(binary[1], "Exponent Representation");
+    let mantissaBit = styleToolTip(binary[2], "Mantissa Representation");
+    return<div className="inline-flex flex-wrap">{signBit} {exponentBit} {mantissaBit}</div>
+  }
+
    function convert(inputNum: string, base: string, exponent: string){
     // Get sign bit and split number
     let sign_bit: string = getSign(inputNum);
@@ -64,6 +80,7 @@ function App() {
       if (/^[-]?0*\.?0*$/.test(inputNum)) {
         setBinaryOutput('0 00000000 00000000000000000000000');
         setHexOutput('00000000');
+        setType("Zero")
       } else if (base === "2") {
         dec = parseFloat("0." + splitNum[1]);
 
@@ -79,6 +96,8 @@ function App() {
 
           setBinaryOutput(answer_bin);
           setHexOutput(answer_hex);
+          setType("Finite");
+
         }
       } else if (base === "10") {
         inputNum = (parseFloat(String(integer + dec)) * parseFloat(Math.pow(10.0, parseInt(exponent)).toString())).toString();
@@ -103,6 +122,7 @@ function App() {
 
           setBinaryOutput(answer_bin);
           setHexOutput(answer_hex);
+          setType("Finite")
         }
       }
     }
@@ -118,12 +138,14 @@ function App() {
     if(inputNum === "qNaN") {
       setBinaryOutput("0 11111111 010 0000 0000 0000 0000 0000");
       setHexOutput("7FA00000");
+      setType("Quiet Nan")
       return false;
     }
 
     if(inputNum === "sNaN") {
       setBinaryOutput("0 11111111 100 0000 0000 0000 0000 0000");
       setHexOutput("7FC00000");
+      setType("Signaling NaN")
       return false;
     }
 
@@ -180,6 +202,7 @@ function App() {
 
       setBinaryOutput(answer_bin);
       setHexOutput(answer_hex);
+      setType("Denormalized")
 
       return true;
     }
@@ -189,6 +212,7 @@ function App() {
 
       setBinaryOutput(answer_bin);
       setHexOutput(answer_hex);
+      (sign_bit === "1") ? setType("Positive Infinity") : setType("Negative Infinity")
 
       return true;
     }
@@ -270,15 +294,16 @@ function App() {
         </div>
 
         <div className="outputArea">
-          {binaryOutput && <p className="output" id="binaryOutput">Binary: {binaryOutput}</p>}
+          {binaryOutput && <p className="output" id="binaryOutput">Binary: {binaryFormatByParts(binaryOutput)}</p>}
           {hexOutput && <p className="output" id="hexOutput">Hexadecimal: {hexOutput}</p>}
+          {type && <p className="output" id="typeOutput">Type: {type}</p>}
           {/* Download Output Button */}
           {binaryOutput && hexOutput && <div className="convert-div">
             <button onClick={handleDownload} className="btn convert-button">Download Output.txt</button>
           </div>}
-        </div>
-        <div className="errorArea">
-          {errorMessage && <p className="error" id="error">{errorMessage}</p>}
+          {errorMessage && <div className="errorArea py-2 px-6 rounded-full text-black font-bold">
+            <p className="error" id="error">{errorMessage}</p>
+          </div>}
         </div>
       </main>
     </div>

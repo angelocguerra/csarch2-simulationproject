@@ -4,7 +4,7 @@
 
 .App {
   text-align: center;
-  background-color: #f8f8f7;
+  background-color: #DECE9C;
   color: #1d1d1f;
   font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   display: flex;
@@ -115,11 +115,10 @@
 }
 
 .clear-button {
-    background-color: #ED0800 !important;
+    background-color: #DF2E38;
     padding: 0.5rem 1rem;
     margin-top: 1rem;
     border-radius: 20px;
-    background-color: #0071e3;
     color: white;
     font-size: 1rem;
     border: none;
@@ -128,7 +127,7 @@
 }
 
 .clear-button:hover {
-    background-color: #B80600 !important;
+    background-color: #C21E26 !important;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -146,6 +145,10 @@
   margin-top: 10px;
   border-radius: 15px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.errorArea {
+    background-color: #DF2E38;
 }
 
 .footer {
