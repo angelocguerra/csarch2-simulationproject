@@ -36,6 +36,7 @@ function App() {
     //Clear output
     setBinaryOutput("");
     setHexOutput("");
+    setType("");
     setErrorMessage("");
   };
 
@@ -48,6 +49,7 @@ function App() {
   function clearOutputs(): void {
     setBinaryOutput("");
     setHexOutput("");
+    setType("");
   }
 
   function styleToolTip(text: string, tip: string, space:boolean = true): JSX.Element {
