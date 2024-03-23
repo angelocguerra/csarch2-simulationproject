@@ -113,14 +113,14 @@ function App() {
         let normalized: [string, number] = normalize_decimal(integer_str, dec_str, parseInt(exponent));
         let binary: string[] = normalized[0].split(".");
 
-        let binary_str: string = normalized[0];
+        let binary_str: string = normalized[0].split('.')[1];
 
         if(checkSpecial(sign_bit, Number(exponent), binary[0], "0."+binary[1], 0) === false) {
           let exponent: number = 127 + normalized[1];
           let expoRep: string = integer_to_binary(exponent);
 
-          let answer_bin: string = sign_bit + " " + getExponent(expoRep) + " " + getMantissa(binary_str.split('.')[1]);
-          let answer_hex: string = binary_to_hex(sign_bit + getExponent(expoRep) + getMantissa(binary_str.split('.')[1]));
+          let answer_bin: string = sign_bit + " " + getExponent(expoRep) + " " + getMantissa(binary_str);
+          let answer_hex: string = binary_to_hex(sign_bit + getExponent(expoRep) + getMantissa(binary_str));
 
           setBinaryOutput(answer_bin);
           setHexOutput(answer_hex);

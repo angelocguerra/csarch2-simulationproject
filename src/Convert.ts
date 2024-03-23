@@ -67,7 +67,10 @@ export function decimal_to_binary(input: number): string {
     let fractional = "";
     var temp;
     var count = 0;
-
+    // input = 0.875 -> 0.75 -> 0.5 -> 0.0
+    // temp = 1
+    // fractional = 111
+    // count = 3
     while (input % 1 != 0) {
         input *= 2;
         temp = Math.floor(input);
@@ -112,11 +115,11 @@ export function normalize_decimal(integer: string, decimal: string, exponent: nu
         temp = decimal;
 
         while(temp.charAt(0) != "1") {
-            temp = (parseFloat(temp).toString(2).slice(1)).toString();
+            temp = parseFloat(temp).toString(2).slice(1);
             count += 1;
         }
         count += 1;
-        temp = (parseFloat(temp).toString(2).slice(1)).toString();
+        temp = (temp).toString();
         binary = "1" + "." + temp;
         exponent = 0 - count;
     }
