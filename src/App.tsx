@@ -16,6 +16,8 @@ function App() {
   let handleConvert = () => {
     let [inputNum, exponent] = getInputValues();
     let base = (document.getElementById("selectBase") as HTMLInputElement).value;
+    setErrorMessage("");
+    clearOutputs();
     convert(inputNum, base, exponent);
   };
 
