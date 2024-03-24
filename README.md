@@ -5,16 +5,16 @@
 This repository contains the source code, output screenshots, and a short video demonstration of the web application implemented in TypeScript using React.js that simulates an IEEE-754 Binary-32 Floating-Point Converter to its binary or hexadecimal equivalents (including special cases).
 
 ## Contents
-**1. Screenshots**<br>
+**1. [Screenshots](https://github.com/angelocguerra/csarch2-simulationproject/blob/main/S13-Group6_Screenshots.pdf)**<br>
 - Screenshots of the program output showcasing all possible test cases covering the specifications<br>
 
-**2. Video Demonstration**
+**2. [Video Demonstration](https://bit.ly/S13-Group6_VideoDemonstration)**
 - A short video demonstration showcasing the program compilation and all test cases covered in the specifications<br>
 
-**3. Source Code**<br>
+**3. [Source Code](https://github.com/angelocguerra/csarch2-simulationproject/tree/main/src)**<br>
 - The source code for the project and link to the web-based application<br>
 
-**4. Technical Analysis Write-Up**<br>
+**4. [Technical Analysis Write-Up](https://github.com/angelocguerra/csarch2-simulationproject/blob/main/S13-Group6_AnalysisWriteUp.pdf)**<br>
 - Short write-up showcasing problems encountered and strategies in solving them and analysis on implementing the requirements for the project<br>
 
 ## Running the Program
