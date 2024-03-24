@@ -63,10 +63,10 @@ export function integer_to_binary(integer: number): string {
     return (integer >>> 0).toString(2)
 }
 
-export function decimal_to_binary(input: number): string {
+export function decimal_to_binary(input: number) {
     let fractional = "";
-    var temp;
-    var count = 0;
+    let temp;
+    let count = 0;
     // input = 0.875 -> 0.75 -> 0.5 -> 0.0
     // temp = 1
     // fractional = 111
@@ -78,47 +78,44 @@ export function decimal_to_binary(input: number): string {
             temp = 1
             input -= 1;
         }
-        fractional += temp;
+        fractional += temp.toString();
         count += 1;
-        if (count == 31) {
-            break;
-        }
+        if (count == 31) { break; }
     }
-    return fractional
+    return fractional;
 }
 
-export function normalize_decimal(integer: string, decimal: string, exponent: number): [string, number] {
+// @ts-ignore
+export function normalize_decimal(integer, decimal, exponent) {
     let binary = "";
-    var count = 0;
+    let count = 0;
+    let temp;
 
-    var temp
+    if (decimal == 0) { exponent = 0; }
 
-    if (decimal == "0") {
-        exponent = 0;
-    }
-
-    if(integer.length == 1 && integer == "1") {
+    if(integer.toString().length == 1 && integer == "1") {
         binary = integer + "." + decimal;
     }
 
-    else if(integer.length > 1) {
+    else if(integer.toString().length > 1) { // Shift decimal point to left
         while(integer != "1") {
             temp = integer.slice(-1);
             count += 1;
-            decimal = decimal.padStart(decimal.length + 1, temp);
+            decimal = decimal.padStart(decimal.toString().length + 1, temp);
             integer = integer.slice(0, -1);
         }
         binary = "1" + "." + decimal;
         exponent = count;
     }
-    else if(integer == "0") {
+    else if(integer == 0) { // Shift decimal point to right
         temp = decimal;
 
         while(temp.charAt(0) != "1") {
-            temp = temp.slice(1);
+            temp = temp.toString(2).slice(1);
             count += 1;
         }
         count += 1;
+        temp = temp.toString(2).slice(1);
         binary = "1" + "." + temp;
         exponent = 0 - count;
     }
@@ -175,8 +172,8 @@ export function getSign(input: string): string {
 }
 
 export function getMantissa(mantissa: string): string {
-    var length = mantissa.length;
-    var add = 23 - length;
+    let length = mantissa.length;
+    let add = 23 - length;
 
     if(length < 23) {
         for (let i = 0; i < add; i++) {
@@ -192,11 +189,11 @@ export function getMantissa(mantissa: string): string {
 }
 
 export function getExponent(input: string): string {
-    var length = input.length;
-    var add = 8 - length;
+    let length = input.length;
+    let add = 8 - length;
 
     for (let i = 0; i < add; i++) {
-        input = input.padStart(input.length + 1, "0");
+        input = input.padStart(input.toString().length + 1, "0");
     }
     return input;
 }

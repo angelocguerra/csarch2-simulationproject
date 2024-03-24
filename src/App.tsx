@@ -110,6 +110,7 @@ function App() {
         let integer_str: string = integer_to_binary(integer);
         let dec_str: string = decimal_to_binary(dec);
 
+        // @ts-ignore
         let normalized: [string, number] = normalize_decimal(integer_str, dec_str, parseInt(exponent));
         let binary: string[] = normalized[0].split(".");
 
